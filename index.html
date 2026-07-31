@@ -3,8 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Cando (working title)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover" />
+    <title>HeyGo</title>
+
+    <!-- App-shell metadata: opening the hosted review build on a phone and
+         using "Add to Home Screen" launches it standalone (no browser
+         chrome/URL bar), like a real installed app, so a physical-phone
+         review doesn't depend on a dev tunnel staying alive. See
+         public/manifest.json for the rest of the install metadata. This
+         file (public/index.html) is Expo's documented override point for
+         the exported page shell — read in place of the built-in template
+         whenever it exists, for both `expo start --web` and
+         `expo export --platform web`. -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FF6B4A" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="HeyGo" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
@@ -15,16 +33,33 @@
       /* These styles disable body scrolling if you are using <ScrollView> */
       body {
         overflow: hidden;
+        /* Kill the rubber-band/pull-to-refresh bounce and edge glow on
+           mobile Safari/Chrome so the app reads as an installed app
+           surface, not a scrolled web page. */
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
       /* These styles make the root element full-height */
       #root {
         display: flex;
         height: 100%;
         flex: 1;
+        overscroll-behavior: none;
+      }
+      /* Mobile browser chrome (address bar) resizes the viewport as it
+         shows/hides, which can push a fixed bottom tab bar off-screen when
+         html/body are pinned to a stale 100vh. Prefer the dynamic viewport
+         unit where supported so the layout always matches the real
+         available height. */
+      @supports (height: 100dvh) {
+        html, body, #root {
+          height: 100dvh;
+        }
       }
     </style>
-  <link rel="icon" href="/porchlight-review/favicon.ico"/><link rel="preload" href="/porchlight-review/_expo/static/css/leaflet-df687fead8c4838a4e6b8bcb2f176a0e.css" as="style">
-<link rel="stylesheet" href="/porchlight-review/_expo/static/css/leaflet-df687fead8c4838a4e6b8bcb2f176a0e.css"></head>
+  <link rel="icon" href="/favicon.ico"/><link rel="preload" href="/_expo/static/css/leaflet-df687fead8c4838a4e6b8bcb2f176a0e.css" as="style">
+<link rel="stylesheet" href="/_expo/static/css/leaflet-df687fead8c4838a4e6b8bcb2f176a0e.css"></head>
 
   <body>
     <!-- Use static rendering with Expo Router to support running without JavaScript. -->
@@ -33,6 +68,6 @@
     </noscript>
     <!-- The root element for your Expo app. -->
     <div id="root"></div>
-  <script src="/porchlight-review/_expo/static/js/web/index-848046da6b819f487c77700433578a3e.js" defer></script>
+  <script src="/_expo/static/js/web/index-97a8c3d575e10206b0d376b5e73a84c3.js" defer></script>
 </body>
 </html>
